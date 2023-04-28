@@ -50,5 +50,8 @@ function onMapClick(e) {
 	}
 };
 
+window.addEventListener('resize', function() {
+  map.invalidateSize();
+});
 
 map.on('click', onMapClick);
