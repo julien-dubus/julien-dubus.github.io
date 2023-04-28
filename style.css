@@ -1,34 +1,11 @@
 /* CSS styles for the Grocery Stores Survey website */
 
-body {
-font-family: Arial, Helvetica, sans-serif;
-margin: 0;
-padding: 0;
-}
 
-#map {
-height: 500px;
-margin-bottom: 20px;
-}
-
-button {
-background-color: #4CAF50;
-border: none;
-color: white;
-padding: 10px 20px;
-text-align: center;
-text-decoration: none;
-display: inline-block;
-font-size: 16px;
-margin-right: 10px;
-cursor: pointer;
-}
-
-button:disabled {
-background-color: #ccc;
-cursor: not-allowed;
-}
-
-#button-group {
-margin-bottom: 20px;
-}
+*{font-family: 'Source Sans Pro', sans-serif;}
+.map {height:70%}
+#map {position:relative;height:500px;}
+.leaflet-popup-content {font-size: medium;}
+.form-group{width:250px;margin-bottom:0;}
+.form-control{resize:none;}
+.text-muted{font-size:smaller;}
+hr {margin: 10px 0;}
