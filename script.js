@@ -32,13 +32,10 @@ function init() {
 	})
   }
   
-  
 function showInfo(results) {
 	var data = results.data
-
-	// data comes through as a simple array since simpleSheet is turned on
-	console.log(data);
 }
+
 
 function displayAllData (data) {
 	// Extract data from object
