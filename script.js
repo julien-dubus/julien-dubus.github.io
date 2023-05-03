@@ -40,8 +40,6 @@ function showInfo(results) {
 	console.log(data);
 }
 
-data = [{Horodateur: "03/05/2023 13:13:34", "Latitude (do not change)": "63.42965161893003", "Longitude (do not change)": "10.392208099365236", "Closing date": "1789", "Store type": "specialised: patate" }];
-
 function displayAllData (data) {
 	// Extract data from object
 	for (d of data) {
