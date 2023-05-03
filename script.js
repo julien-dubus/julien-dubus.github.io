@@ -20,22 +20,22 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 
-// function init() {
-	// Papa.parse(public_spreadsheet_url, {
-		// download: true,
-		// header: true,
-		// complete: showInfo
-	// })
-  // }
+function init() {
+	Papa.parse(public_spreadsheet_url, {
+		download: true,
+		header: true,
+		complete: showInfo
+	})
+  }
   
-// window.addEventListener('DOMContentLoaded', init)
+window.addEventListener('DOMContentLoaded', init)
   
-// function showInfo(results) {
-	// var data = results.data
+function showInfo(results) {
+	var data = results.data
 
-	// // data comes through as a simple array since simpleSheet is turned on
-	// console.log(data);
-// }
+	// data comes through as a simple array since simpleSheet is turned on
+	console.log(data);
+}
 
 function displayAllData (data) {
 	// Extract data from object
