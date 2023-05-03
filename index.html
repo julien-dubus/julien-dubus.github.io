@@ -6,15 +6,48 @@
 	<link rel="stylesheet" href="style.css" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="leaflet/leaflet.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 	<header>
-		<h1>Do you remember any grocery stores that was open in 1980 ?</h1>
+		<h1>Do you remember any grocery stores that closed in Trondheim ?</h1>
 	</header>
 	<footer>
-		<p>Click on the map where a grocery store was present in 1980. This will open a new page and you will just have to press the send button</p>
+		<p>Click on the map where you think a grocery stores was located but has since closed. A new page will open and all you have to do is press the "send" button. You can then return to this page if you think of other stores.</p>
 	</footer>
+	
+	<!-- <div id="formdiv"> -->
+	  <!-- <form role="form" id="projectform" onsubmit="return false"> -->
+		<!-- <div class="form-group"> -->
+		  <!-- <div class="form-group"> -->
+		  
+		    <!-- <label for="storeType">What kind of store was it ?<br></label> -->
+			<!-- <label class="form-radio"> -->
+			  <!-- <input type="radio" id="supermarket" name="storeType" value="supermarket" checked="checked" onclick="UpdateSpecialised(true)"></input> -->
+			  <!-- Supermarket<br> -->
+			<!-- </label> -->
+			<!-- <label class="form-radio"> -->
+			  <!-- <input type="radio" id="kiosk" name="storeType" value="kiosk" onclick="UpdateSpecialised(true)"></input> -->
+			  <!-- Kiosk<br> -->
+			<!-- </label> -->
+			<!-- <label class="form-radio"> -->
+			  <!-- <input type="radio" id="specialised" name="storeType" value="specialised" onclick="UpdateSpecialised(true)"></input> -->
+			  <!-- Specialised : <input type="text" name="storeType" placeholder="type of products sold" id="specialisedInput" disabled="true"/> <br><br> -->
+			<!-- </label>			 -->
+			
+			<!-- <label for="date">In what year did this store close ?</label> -->
+			<!-- <textarea class="form-control" name="dateInput" id="dateInput" placeholder="(optionnal)"></textarea> -->
+			
+		  <!-- </div> -->
+		  <!-- <em class="text-muted">Click submit to add a store at this location.</em> -->
+		<!-- <div id="formHelp"></div> -->
+		  <!-- <hr /> -->
+		  <!-- <button type="button" id="SubmitButton" onclick="OpenForm();">Submit</button> -->
+		<!-- </div> -->
+	    <!-- </form> -->
+	<!-- </div>	 -->
+	
 	<div id="map-container">
 		<div id="map"></div>
     </div>
