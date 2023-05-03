@@ -9,7 +9,9 @@ var formdescriptionID = "1426942264"
 
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRxZqyHH7C4M_LySMtWv4Roa-snTqvFwFz88BRA_1a2Zw1ELV9RAewRB23NR5ZR0FlaIU2teaNL1L4C/pub?output=csv';
 
-var data = [];
+var shopIcon = L.icon({
+	iconUrl: 'shopIcon.png',
+});
 
 var markers = [];
 
@@ -38,19 +40,24 @@ function showInfo(results) {
 	console.log(data);
 }
 
+data = [{Horodateur: "03/05/2023 13:13:34", "Latitude (do not change)": "63.42965161893003", "Longitude (do not change)": "10.392208099365236", "Closing date": "1789", "Store type": "specialised: patate" }];
+
 function displayAllData (data) {
 	// Extract data from object
 	for (d of data) {
-		const lat = parseFloat(d["Latitude (do not change)"]);
-		const lng = parseFloat(d["Longitude (do not change)"]);
-		const closingDate = d["Closing date"];
-		const storeType = d["Store type"];
+		var lat = parseFloat(d["Latitude (do not change)"]);
+		var lng = parseFloat(d["Longitude (do not change)"]);
+		var closingDate = d["Closing date"];
+		var storeType = d["Store type"];
 
 		// Create marker and set its position
-		const marker = L.marker([lat, lng]);
+		const marker = L.marker([lat, lng], {icon: shopIcon});
 
 		// Set marker title and description
+	if (storeType.startsWith("specialised")) {
+		storeType = "Specialised in" + storeType.slice(12);
 		marker.bindPopup("<b>Closing Date:</b> " + closingDate + "<br><b>Store Type:</b> " + storeType);
+	}
 
 		// Add marker to the map
 		marker.addTo(map);
@@ -62,11 +69,10 @@ function onMapClick(e) {
 	lat = e.latlng.lat;
 	lng = e.latlng.lng;
 	// var popup = document.getElementById("formdiv").innerHTML;
-	var popup = L.popup({content:'<div id="formdiv"><div class="form-group"><div class="form-group"><label for="storeType">What kind of store was it ?<br></label><label class="form-radio"><input type="radio" id="supermarket" name="storeType" value="supermarket" checked="checked" onclick="UpdateSpecialised(true)"></input>Supermarket<br></label><label class="form-radio"><input type="radio" id="kiosk" name="storeType" value="kiosk" onclick="UpdateSpecialised(true)"></input>Kiosk<br></label><label class="form-radio"><input type="radio" id="specialised" name="storeType" value="specialised" onclick="UpdateSpecialised(false)"></input>Specialised : <input type="text" name="storeType" placeholder="type of products sold" id="specialisedInput" disabled="true"/> <br><br></label><label for="date">In what year did this store close ?</label><textarea class="form-control" name="dateInput" id="dateInput" placeholder="(optionnal)"></textarea>			<label for="description">Short description of the store</label><textarea class="form-control" name="descriptionInput" id="descriptionInput" placeholder="(optionnal)"></textarea>			</div><em class="text-muted">Click submit to add a store at this location.</em><div id="formHelp"></div><hr /><button type="button" id="SubmitButton" onclick="OpenForm();">Submit</button></div></div>', closeButton:true});
+	var popup = L.popup({content:'<div id="formdiv"><div class="form-group"><div class="form-group"><label for="storeType">What kind of store was it ?<br></label><label class="form-radio"><input type="radio" id="supermarket" name="storeType" value="supermarket" checked="checked" onclick="UpdateSpecialised(true)"></input>Supermarket<br></label><label class="form-radio"><input type="radio" id="kiosk" name="storeType" value="kiosk" onclick="UpdateSpecialised(true)"></input>Kiosk<br></label><label class="form-radio"><input type="radio" id="specialised" name="storeType" value="specialised" onclick="UpdateSpecialised(false)"></input>Specialised : <input type="text" name="storeType" placeholder="type of products sold" id="specialisedInput" disabled="true"/> <br><br></label><label for="date">In what year did this store close ?</label><input class="form-control" name="dateInput" id="dateInput" placeholder="(optionnal)"></input><br><br><label for="description">Short description of the store</label><textarea class="form-control" name="descriptionInput" id="descriptionInput" placeholder="(optionnal)"></textarea>			</div><em class="text-muted">Click submit to add a store at this location.</em><div id="formHelp"></div><hr /><button type="button" id="SubmitButton" onclick="OpenForm();">Submit</button></div></div>', closeButton:true});
     
 	//Add marker visually on the map and open a popup
 	marker = L.marker(e.latlng).addTo(map).bindPopup(popup);
-	
 
     setTimeout(function() {
 		marker.openPopup();
