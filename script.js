@@ -28,7 +28,6 @@ function init() {
 	})
   }
   
-window.addEventListener('DOMContentLoaded', init)
   
 function showInfo(results) {
 	var data = results.data
@@ -109,6 +108,7 @@ function UpdateSpecialised(disabled) {
 	};
 };
 
+init();
 
 displayAllData(data);
 
