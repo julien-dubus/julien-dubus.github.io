@@ -14,7 +14,6 @@ var shopIcon = L.icon({
 });
 
 var data = []
-
 var markers = [];
 
 
@@ -37,8 +36,6 @@ function init() {
 function showInfo(results) {
 	data = results.data
 }
-
-data = [{Horodateur: "03/05/2023 13:13:34", "Latitude (do not change)": "63.42965161893003", "Longitude (do not change)": "10.392208099365236", "Closing date": "1789", "Store type": "specialised: patate" }];
 
 function displayAllData (data) {
 	// Extract data from object
@@ -105,6 +102,8 @@ function OpenForm() {
 	window.open(link);
 	
 	markers.push(marker);
+	
+	document.getElementById("displayAllData").style.display = "inline";
 }
 
 function UpdateSpecialised(disabled) {
@@ -115,7 +114,5 @@ function UpdateSpecialised(disabled) {
 };
 
 init();
-
-displayAllData(data);
 
 map.on('click', onMapClick);
