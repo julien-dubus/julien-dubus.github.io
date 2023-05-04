@@ -24,18 +24,17 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-
-function init() {
+// Download the Google Sheet with the surveys responses
+function DLGoogleSheet() {
 	Papa.parse(public_spreadsheet_url, {
 		download: true,
 		header: true,
-		complete: showInfo
+		complete: function (results) {
+					data = results.data;
+				}
 	})
   }
-  
-function showInfo(results) {
-	data = results.data
-}
+ 
 
 function displayAllData (data) {
 	// Extract data from object
@@ -113,6 +112,6 @@ function UpdateSpecialised(disabled) {
 	};
 };
 
-init();
+DLGoogleSheet();
 
 map.on('click', onMapClick);
