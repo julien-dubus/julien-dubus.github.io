@@ -11,10 +11,13 @@
 </head>
 <body>
 	<header>
-		<h1>Do you remember any grocery stores that closed in Trondheim ?</h1>
+			<h1 id="title_question">Do you remember any grocery stores that closed in Trondheim ?</h1>
+		<div id="language-links">
+			<a href="#" onclick="setLanguage('en')" title="English version">🇬🇧</a> | <a href="#" onclick="setLanguage('no')" title="Norsk versjon">🇳🇴</a>
+		</div>
 	</header>
 	<footer>
-		<p>Click on the map where you think a grocery stores was located but has since closed. A new page will open and all you have to do is press the "send" button. You can then return to this page if you think of other stores.</p>
+		<p id="title_instructions">Click on the map where you think a grocery stores was located but has since closed. A new page will open and all you have to do is press the "send" button. You can then return to this page if you think of other stores.</p>
 		<button type="button" id="displayAllData" onclick="displayAllData(data);" style="display:inline;">See what others have proposed</button>
 	</footer>
 	
