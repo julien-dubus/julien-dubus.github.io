@@ -11,6 +11,8 @@ var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR
 
 var shopIcon = L.icon({
 	iconUrl: 'shopIcon.png',
+	size: [40,40],
+	iconAnchor: [20,20]
 });
 
 var data = []
