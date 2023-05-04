@@ -29,11 +29,13 @@ function DLGoogleSheet() {
 	Papa.parse(public_spreadsheet_url, {
 		download: true,
 		header: true,
-		complete: function (results) {
-					data = results.data;
-				}
+		complete: showInfo
 	})
   }
+ 
+function showInfo(results) {
+	data = results.data
+}
  
 
 function displayAllData (data) {
