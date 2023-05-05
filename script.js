@@ -82,10 +82,9 @@ function displayAllData (data) {
 
 		// Set marker title and description
 	if (storeType.startsWith("specialised")) {
-		storeType = "Specialised in" + storeType.slice(12);
-		marker.bindPopup("<b>Closing Date:</b> " + closingDate + "<br><b>Store Type:</b> " + storeType);
-		
+		storeType = "Specialised in" + storeType.slice(12);		
 	}
+	marker.bindPopup("<b>Closing Date:</b> " + closingDate + "<br><b>Store Type:</b> " + storeType);
 	marker.on('mouseover', function (e) {
 		this.openPopup();
 	});
