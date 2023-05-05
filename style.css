@@ -9,9 +9,8 @@ html, body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
-#language-links a {
-    color: blue;
-    text-decoration : none;
+#language-links img {
+	cursor : pointer;
 }
 
 
