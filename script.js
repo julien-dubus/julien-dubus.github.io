@@ -25,7 +25,7 @@ var formdescriptionID = "1426942264"
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRxZqyHH7C4M_LySMtWv4Roa-snTqvFwFz88BRA_1a2Zw1ELV9RAewRB23NR5ZR0FlaIU2teaNL1L4C/pub?output=csv';
 
 var shopIcon = L.icon({
-	iconUrl: 'shopIcon.png',
+	iconUrl: 'img/shopIcon.png',
 	size: [40,40],
 	iconAnchor: [20,20]
 });
