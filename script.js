@@ -84,8 +84,14 @@ function displayAllData (data) {
 	if (storeType.startsWith("specialised")) {
 		storeType = "Specialised in" + storeType.slice(12);
 		marker.bindPopup("<b>Closing Date:</b> " + closingDate + "<br><b>Store Type:</b> " + storeType);
+		
 	}
-
+	marker.on('mouseover', function (e) {
+		this.openPopup();
+	});
+	marker.on('mouseout', function (e) {
+		this.closePopup();
+	});
 		// Add marker to the map
 		marker.addTo(map);
 	}
@@ -97,10 +103,10 @@ function onMapClick(e) {
 	lng = e.latlng.lng;
 	// var popup = document.getElementById("formdiv").innerHTML;
 	if (language == 'en') {
-		var popup = L.popup({content:'<div id="formdiv"><div class="form-group"><div class="form-group"><label for="storeType">What kind of store was it ?<br></label><label class="form-radio"><input type="radio" id="supermarket" name="storeType" value="supermarket" checked="checked" onclick="UpdateSpecialised(true)"></input>Supermarket<br></label><label class="form-radio"><input type="radio" id="kiosk" name="storeType" value="kiosk" onclick="UpdateSpecialised(true)"></input>Kiosk<br></label><label class="form-radio"><input type="radio" id="specialised" name="storeType" value="specialised" onclick="UpdateSpecialised(false)"></input>Specialised : <input type="text" name="storeType" placeholder="type of products sold" id="specialisedInput" disabled="true"/> <br><br></label><label for="date">In what year did this store close ?</label><input class="form-control" name="dateInput" id="dateInput" placeholder="(optionnal)"></input><br><br><label for="description">Short description of the store</label><textarea class="form-control" name="descriptionInput" id="descriptionInput" placeholder="(optionnal)"></textarea>			</div><em class="text-muted">Click submit to add a store at this location.</em><div id="formHelp"></div><hr /><button type="button" id="SubmitButton" onclick="OpenForm();">Submit</button></div></div>', closeButton:true});
+		var popup = L.popup({content:'<div id="formdiv"><div class="form-group"><div class="form-group"><label for="storeType">What kind of store was it ?<br></label><label class="form-radio"><input type="radio" id="supermarket" name="storeType" value="supermarket" checked="checked" onclick="UpdateSpecialised(true)"></input>Supermarket<br></label><label class="form-radio"><input type="radio" id="kiosk" name="storeType" value="kiosk" onclick="UpdateSpecialised(true)"></input>Kiosk<br></label><label class="form-radio"><input type="radio" id="specialised" name="storeType" value="specialised" onclick="UpdateSpecialised(false)"></input>Specialised : <input type="text" name="storeType" placeholder="type of products sold" id="specialisedInput" disabled="true"/> <br><br></label><label for="date">In what year did this store close ?</label><input class="form-control" name="dateInput" id="dateInput" placeholder="(optionnal)"></input><br><br><label for="description">Short description of the store</label><textarea class="form-control" name="descriptionInput" id="descriptionInput" placeholder="(optionnal)"></textarea></div><em class="text-muted">Click submit to add a store at this location.</em><div id="formHelp"></div><hr /><button type="button" id="SubmitButton" onclick="OpenForm();">Add a store</button></div></div>', closeButton:true});
 	}
 	if (language == 'no') {
-		var popup = L.popup({content:'<div id="formdiv"><div class="form-group"><div class="form-group"><label for="storeType">Hva slags butikk var det?<br></label><label class="form-radio"><input type="radio" id="supermarket" name="storeType" value="supermarket" checked="checked" onclick="UpdateSpecialised(true)"></input>Supermarked<br></label><label class="form-radio"><input type="radio" id="kiosk" name="storeType" value="kiosk" onclick="UpdateSpecialised(true)"></input>Kiosk<br></label><label class="form-radio"><input type="radio" id="specialised" name="storeType" value="specialised" onclick="UpdateSpecialised(false)"></input>Spesialisert: <input type="text" name="storeType" placeholder="type av produkter solgt" id="specialisedInput" disabled="true"/> <br><br></label><label for="date">I hvilket år stengte denne butikken ?</label><input class="form-control" name="dateInput" id="dateInput" placeholder="(valgfritt)"></input><br><br><label for="description">Kort beskrivelse av butikken</label><textarea class="form-control" name="descriptionInput" id="descriptionInput" placeholder="(valgfritt)"></textarea> </div><em class="text-muted">Klikk på send for å legge til en butikk på dette stedet.</em><div id="formHelp"></div><hr /><button type="button" id="SubmitButton" onclick="OpenForm();">Send</button></div></div>', closeButton:true});
+		var popup = L.popup({content:'<div id="formdiv"><div class="form-group"><div class="form-group"><label for="storeType">Hva slags butikk var det?<br></label><label class="form-radio"><input type="radio" id="supermarket" name="storeType" value="supermarket" checked="checked" onclick="UpdateSpecialised(true)"></input>Supermarked<br></label><label class="form-radio"><input type="radio" id="kiosk" name="storeType" value="kiosk" onclick="UpdateSpecialised(true)"></input>Kiosk<br></label><label class="form-radio"><input type="radio" id="specialised" name="storeType" value="specialised" onclick="UpdateSpecialised(false)"></input>Spesialisert: <input type="text" name="storeType" placeholder="type av produkter solgt" id="specialisedInput" disabled="true"/> <br><br></label><label for="date">I hvilket år stengte denne butikken ?</label><input class="form-control" name="dateInput" id="dateInput" placeholder="(valgfritt)"></input><br><br><label for="description">Kort beskrivelse av butikken</label><textarea class="form-control" name="descriptionInput" id="descriptionInput" placeholder="(valgfritt)"></textarea> </div><em class="text-muted">Klikk på send for å legge til en butikk på dette stedet.</em><div id="formHelp"></div><hr /><button type="button" id="SubmitButton" onclick="OpenForm();">Legg til en butikk</button></div></div>', closeButton:true});
 	}
 	//Add marker visually on the map and open a popup
 	marker = L.marker(e.latlng).addTo(map).bindPopup(popup);
@@ -134,7 +140,7 @@ function OpenForm() {
 	
 	let description = document.querySelector('#descriptionInput').value;
 	
-	var link = "https://docs.google.com/forms/d/e/" + formID + "/viewform?usp=pp_url&entry." + formlatID + "=" + lat + "&entry." + formlngID + "=" + lng + "&entry." + formdateID + "=" + date + "&entry." + formtypeID + "=" + type + "&entry." + formdescriptionID + "=" + description + "&submit=Submit";
+	var link = "https://docs.google.com/forms/d/e/" + formID + "/formResponse?usp=pp_url&entry." + formlatID + "=" + lat + "&entry." + formlngID + "=" + lng + "&entry." + formdateID + "=" + date + "&entry." + formtypeID + "=" + type + "&entry." + formdescriptionID + "=" + description + "&submit=Submit";
 	window.open(link);
 	
 	markers.push(marker);
