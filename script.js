@@ -2,13 +2,13 @@
 
 langEN = {
 	"title_question" : "Do you remember any grocery stores that closed in Trondheim ?",
-	"title_instructions" : "Click on the map where you think a grocery stores was located but has since closed. A new page will open and all you have to do is press the \"send\" button. You can then return to this page if you think of other stores.",
+	"title_instructions" : "Click on the map where you think a grocery stores was located but has since closed. Fill in the information and then press the \"Add a store\" button. A new page will open. You can close it and come back to this page if you think of other stores.",
 	"dispData" : "See what others have proposed",
 };
 
 langNO = {
 	"title_question" : "Husker du noen dagligvarebutikker som stengte i Trondheim?",
-	"title_instructions" : "Klikk på kartet der du tror en dagligvarebutikk lå, men som siden har stengt. En ny side åpnes, og alt du trenger å gjøre er å trykke på \"send\"-knappen. Du kan deretter gå tilbake til denne siden hvis du kommer på andre butikker.",
+	"title_instructions" : "Klikk på kartet der du tror en dagligvarebutikk lå, men som siden har stengt. Fyll ut informasjonen og trykk deretter på knappen \"Legg til en butikk\". En ny side åpnes. Du kan lukke den og komme tilbake til denne siden hvis du kommer på andre butikker.",
 	"dispData" : "Se hva andre har foreslått",
 };
 
@@ -82,9 +82,10 @@ function displayAllData (data) {
 
 		// Set marker title and description
 	if (storeType.startsWith("specialised")) {
-		storeType = "Specialised in" + storeType.slice(12);		
+		storeType = "Specialised in" + storeType.slice(12);
 	}
 	marker.bindPopup("<b>Closing Date:</b> " + closingDate + "<br><b>Store Type:</b> " + storeType);
+	
 	marker.on('mouseover', function (e) {
 		this.openPopup();
 	});
@@ -102,10 +103,10 @@ function onMapClick(e) {
 	lng = e.latlng.lng;
 	// var popup = document.getElementById("formdiv").innerHTML;
 	if (language == 'en') {
-		var popup = L.popup({content:'<div id="formdiv"><div class="form-group"><div class="form-group"><label for="storeType">What kind of store was it ?<br></label><label class="form-radio"><input type="radio" id="supermarket" name="storeType" value="supermarket" checked="checked" onclick="UpdateSpecialised(true)"></input>Supermarket<br></label><label class="form-radio"><input type="radio" id="kiosk" name="storeType" value="kiosk" onclick="UpdateSpecialised(true)"></input>Kiosk<br></label><label class="form-radio"><input type="radio" id="specialised" name="storeType" value="specialised" onclick="UpdateSpecialised(false)"></input>Specialised : <input type="text" name="storeType" placeholder="type of products sold" id="specialisedInput" disabled="true"/> <br><br></label><label for="date">In what year did this store close ?</label><input class="form-control" name="dateInput" id="dateInput" placeholder="(optionnal)"></input><br><br><label for="description">Short description of the store</label><textarea class="form-control" name="descriptionInput" id="descriptionInput" placeholder="(optionnal)"></textarea></div><em class="text-muted">Click on the button to add a store at this location.</em><div id="formHelp"></div><hr /><button type="button" id="SubmitButton" onclick="OpenForm();">Add a store</button></div></div>', closeButton:true});
+		var popup = L.popup({content:'<div id="formdiv"><div class="form-group"><div class="form-group"><label for="storeType">What kind of store was it ?<br></label><label class="form-radio"><input type="radio" id="supermarket" name="storeType" value="supermarket" checked="checked" onclick="UpdateSpecialised(true)"></input>Grocery stores (or supermarket)<br></label><label class="form-radio"><input type="radio" id="kiosk" name="storeType" value="kiosk" onclick="UpdateSpecialised(true)"></input>Kiosk<br></label><label class="form-radio"><input type="radio" id="specialised" name="storeType" value="specialised" onclick="UpdateSpecialised(false)"></input>Specialised : <input type="text" name="storeType" placeholder="type of products sold" id="specialisedInput" disabled="true"/> <br><br></label><label for="date">About when did the shop close down?<br></label><em class="text-muted">If not year, write the last  5-year you think it existed (1970 or 1975 or …)</em><input class="form-control" name="dateInput" id="dateInput" placeholder="..."></input><br><br><label for="description">Short description of the store</label><textarea class="form-control" name="descriptionInput" id="descriptionInput" placeholder="(optionnal)"></textarea></div><em class="text-muted">Click on the button to add a store at this location.</em><div id="formHelp"></div><hr /><button type="button" id="SubmitButton" onclick="OpenForm();">Add a store</button></div></div>', closeButton:true});
 	}
 	if (language == 'no') {
-		var popup = L.popup({content:'<div id="formdiv"><div class="form-group"><div class="form-group"><label for="storeType">Hva slags butikk var det?<br></label><label class="form-radio"><input type="radio" id="supermarket" name="storeType" value="supermarket" checked="checked" onclick="UpdateSpecialised(true)"></input>Supermarked<br></label><label class="form-radio"><input type="radio" id="kiosk" name="storeType" value="kiosk" onclick="UpdateSpecialised(true)"></input>Kiosk<br></label><label class="form-radio"><input type="radio" id="specialised" name="storeType" value="specialised" onclick="UpdateSpecialised(false)"></input>Spesialisert: <input type="text" name="storeType" placeholder="type av produkter solgt" id="specialisedInput" disabled="true"/> <br><br></label><label for="date">I hvilket år stengte denne butikken ?</label><input class="form-control" name="dateInput" id="dateInput" placeholder="(valgfritt)"></input><br><br><label for="description">Kort beskrivelse av butikken</label><textarea class="form-control" name="descriptionInput" id="descriptionInput" placeholder="(valgfritt)"></textarea> </div><em class="text-muted">Klikk på knappen for å legge til en butikk på dette stedet.</em><div id="formHelp"></div><hr /><button type="button" id="SubmitButton" onclick="OpenForm();">Legg til en butikk</button></div></div>', closeButton:true});
+		var popup = L.popup({content:'<div id="formdiv"><div class="form-group"><div class="form-group"><label for="storeType">Hva slags butikk var det?<br></label><label class="form-radio"><input type="radio" id="supermarket" name="storeType" value="supermarket" checked="checked" onclick="UpdateSpecialised(true)"></input>Dagligvare / kolonial / supermarked<br></label><label class="form-radio"><input type="radio" id="kiosk" name="storeType" value="kiosk" onclick="UpdateSpecialised(true)"></input>Kiosk<br></label><label class="form-radio"><input type="radio" id="specialised" name="storeType" value="specialised" onclick="UpdateSpecialised(false)"></input>Spesialforretning : <input type="text" name="storeType" placeholder="melk, fisk, kjøtt/slakter" id="specialisedInput" disabled="true"/> <br><br></label><label for="date">Omtrent når ble den nedlagt?<br></label><em class="text-muted">Om ikke årstall, så oppgi siste 5-år du mener den var i drift. (1970 eller 1975 eller…)</em><input class="form-control" name="dateInput" id="dateInput" placeholder="..."></input><br><br><label for="description">Kort beskrivelse av butikken</label><textarea class="form-control" name="descriptionInput" id="descriptionInput" placeholder="(valgfritt)"></textarea> </div><em class="text-muted">Klikk på knappen for å legge til en butikk på dette stedet.</em><div id="formHelp"></div><hr /><button type="button" id="SubmitButton" onclick="OpenForm();">Legg til en butikk</button></div></div>', closeButton:true});
 	}
 	//Add marker visually on the map and open a popup
 	marker = L.marker(e.latlng).addTo(map).bindPopup(popup);
