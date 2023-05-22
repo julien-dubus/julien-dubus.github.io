@@ -56,8 +56,30 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 
-//var shpfile = new L.Shapefile("shp.zip").addTo(map);
-//console.log(shpfile);
+var shpfile = new L.Shapefile("shp.zip");
+shpfile.addTo(map);
+console.log(shpfile);
+
+
+
+var url = 'shp.zip';  // my GeoJSON data source, in same folder as my html page.
+        
+    
+// Null variable that will hold layer
+var theLayer = L.geoJson(null);
+
+    $.getJSON(url, function(data) {
+        theLayer.addData(data);
+    });
+
+ theLayer.addTo(map);
+
+
+
+
+
+
+
 
 
 // Change the language of the page
@@ -88,6 +110,8 @@ function showInfo(results) {
 	data = results.data
 }
 
+data = [{Horodateur: "03/05/2023 13:13:34", "Latitude (do not change)": "63.42965161893003", "Longitude (do not change)": "10.392208099365236", "Closing date": "1789", "Store type": "specialised: patate" },{Horodateur: "03/05/2023 13:13:34", "Latitude (do not change)": "63.43965161893003", "Longitude (do not change)": "10.392208099365236", "Closing date": "1789", "Store type": "supermarket" }];
+
 function displayAllData (data) {
 	// Extract data from object
 	for (d of data) {
@@ -95,7 +119,7 @@ function displayAllData (data) {
 		var lng = parseFloat(d["Longitude (do not change)"]);
 		var closingDate = d["Closing date"];
 		var storeType = d["Store type"];
-
+		
 		// Create marker and set its position
 		if (storeType == "supermarket") {
 			var icon = gsIcon;
@@ -109,7 +133,7 @@ function displayAllData (data) {
 		const marker = L.marker([lat, lng], {icon: icon});
 
 	if (storeType.startsWith("specialised")) {
-		storeType = "Specialised in" + storeType.slice(12);
+		storeType = "Specialised : " + storeType.slice(12);
 	}
 	marker.bindPopup("<b>Closing Date:</b> " + closingDate + "<br><b>Store Type:</b> " + storeType);
 	
@@ -182,6 +206,6 @@ function UpdateSpecialised(disabled) {
 	};
 };
 
-DLGoogleSheet();
+//DLGoogleSheet();
 
 map.on('click', onMapClick);
