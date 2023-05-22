@@ -56,8 +56,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 
-var shpfile = new L.Shapefile("shp.zip").addTo(map);
-console.log(shpfile);
+//var shpfile = new L.Shapefile("shp.zip").addTo(map);
+//console.log(shpfile);
 
 
 // Change the language of the page
