@@ -24,11 +24,25 @@ var formdescriptionID = "1426942264"
 
 var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRxZqyHH7C4M_LySMtWv4Roa-snTqvFwFz88BRA_1a2Zw1ELV9RAewRB23NR5ZR0FlaIU2teaNL1L4C/pub?output=csv';
 
-var shopIcon = L.icon({
+
+var gsIcon = L.icon({
 	iconUrl: 'img/shopIcon.png',
 	size: [40,40],
 	iconAnchor: [20,20]
 });
+
+var kioskIcon = L.icon({
+	iconUrl: 'img/marker-icon-lime.png',
+	size: [40,40],
+	iconAnchor: [20,20]
+});
+
+var speIcon = L.icon({
+	iconUrl: 'img/marker-icon-red.png',
+	size: [40,40],
+	iconAnchor: [20,20]
+});
+
 
 var data = []
 var markers = [];
@@ -39,6 +53,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	attribution: '&copy; OpenStreetMap contributors',
 	maxZoom: 19
 }).addTo(map);
+
+
+
+var shpfile = new L.Shapefile("shp.zip").addTo(map);
+console.log(shpfile);
 
 
 // Change the language of the page
@@ -77,10 +96,20 @@ function displayAllData (data) {
 		var closingDate = d["Closing date"];
 		var storeType = d["Store type"];
 
+		console.log(storeType);
 		// Create marker and set its position
-		const marker = L.marker([lat, lng], {icon: shopIcon});
+		if (storeType == "supermarket") {
+			var icon = gsIcon;
+		}
+		if (storeType == "kiosk") {
+			var icon = kioskIcon;
+		}
+		if (storeType.startsWith("specialised")) {
+			var icon = speIcon;
+		}
+		console.log(icon);
+		const marker = L.marker([lat, lng], {icon: icon});
 
-		// Set marker title and description
 	if (storeType.startsWith("specialised")) {
 		storeType = "Specialised in" + storeType.slice(12);
 	}
