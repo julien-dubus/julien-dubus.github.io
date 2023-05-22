@@ -96,7 +96,6 @@ function displayAllData (data) {
 		var closingDate = d["Closing date"];
 		var storeType = d["Store type"];
 
-		console.log(storeType);
 		// Create marker and set its position
 		if (storeType == "supermarket") {
 			var icon = gsIcon;
@@ -107,7 +106,6 @@ function displayAllData (data) {
 		if (storeType.startsWith("specialised")) {
 			var icon = speIcon;
 		}
-		console.log(icon);
 		const marker = L.marker([lat, lng], {icon: icon});
 
 	if (storeType.startsWith("specialised")) {
