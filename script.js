@@ -56,29 +56,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 
-var shpfile = new L.Shapefile("shp.zip");
-shpfile.addTo(map);
-console.log(shpfile);
-
-
-
-var url = 'shp.zip';  // my GeoJSON data source, in same folder as my html page.
-        
-    
-// Null variable that will hold layer
-var theLayer = L.geoJson(null);
-
-    $.getJSON(url, function(data) {
-        theLayer.addData(data);
-    });
-
- theLayer.addTo(map);
-
-
-
-
-
-
+fetch('shp.zip')
+  .then(response => response.arrayBuffer())
+  .then(arrayBuffer => {
+    var shpfile = new L.Shapefile(arrayBuffer);
+    shpfile.addTo(map);
+  });
 
 
 
