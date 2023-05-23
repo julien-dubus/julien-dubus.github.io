@@ -59,9 +59,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 fetch('Shops.geojson')
   .then(response => response.json())
   .then(geojson => {
+	console.log("non");
     var shpfile = L.geoJSON(geojson, {
       pointToLayer: function (feature, latlng) {
         // Customize the icon based on the property value
+		console.log("oui");
         if (feature.properties.shop == "supermarket") {
           var icon = gsIcon;
         } else if (feature.properties.shop == "kiosk") {
