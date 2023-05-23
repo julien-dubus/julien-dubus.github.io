@@ -56,15 +56,41 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 
-fetch('shp.zip')
+fetch('Shops.geojson')
   .then(response => response.arrayBuffer())
   .then(arrayBuffer => {
-    var shpfile = new L.Shapefile(arrayBuffer,{style:function(feature){
-	return {color:"black",fillColor:"red",fillOpacity:.75}}});
+    var shpfile = new L.geoJSON(geojsonFeature, {
+    pointToLayer: function (feature, latlng) {
+      // Customize the icon based on the property value
+        if (feature.properties.shop == "supermarket") {
+			var icon = gsIcon;
+		}
+		else if (feature.properties.shop == "kiosk") {
+			var icon = kisokIcon;
+		}
+		else {
+			var icon = speIcon;
+		}
+
+		// Create a marker with the custom icon
+		return L.marker(latlng, { icon: icon });
+		}
+    });
     shpfile.addTo(map);
   });
 
 
+
+
+if (feature.properties.shop == "supermarket") {
+				feature.setIcon(gsIcon);
+			}
+			else if (feature.properties.shop == "kiosk") {
+				feature.setIcon(kioskIcon);
+			}
+			else {
+				feature.setIcon(speIcon);
+			}
 
 // Change the language of the page
 function setLanguage(lg) {
@@ -93,8 +119,6 @@ function DLGoogleSheet() {
 function showInfo(results) {
 	data = results.data
 }
-
-data = [{Horodateur: "03/05/2023 13:13:34", "Latitude (do not change)": "63.42965161893003", "Longitude (do not change)": "10.392208099365236", "Closing date": "1789", "Store type": "specialised: patate" },{Horodateur: "03/05/2023 13:13:34", "Latitude (do not change)": "63.43965161893003", "Longitude (do not change)": "10.392208099365236", "Closing date": "1789", "Store type": "supermarket" }];
 
 function displayAllData (data) {
 	// Extract data from object
