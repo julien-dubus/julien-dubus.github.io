@@ -26,21 +26,39 @@ var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR
 
 
 var gsIcon = L.icon({
-	iconUrl: 'img/shopIcon.png',
-	size: [40,40],
-	iconAnchor: [20,20]
+	iconUrl: 'img/S.png',
+	size: [30,30],
+	iconAnchor: [15,15]
 });
 
 var kioskIcon = L.icon({
-	iconUrl: 'img/marker-icon-lime.png',
-	size: [40,40],
-	iconAnchor: [20,20]
+	iconUrl: 'img/K.png',
+	size: [30,30],
+	iconAnchor: [15,15]
 });
 
 var speIcon = L.icon({
-	iconUrl: 'img/marker-icon-red.png',
-	size: [40,40],
-	iconAnchor: [20,20]
+	iconUrl: 'img/A.png',
+	size: [30,30],
+	iconAnchor: [15,15]
+});
+
+var CgsIcon = L.icon({
+	iconUrl: 'img/S_bw.png',
+	size: [30,30],
+	iconAnchor: [15,15]
+});
+
+var CkioskIcon = L.icon({
+	iconUrl: 'img/K_bw.png',
+	size: [30,30],
+	iconAnchor: [15,15]
+});
+
+var CspeIcon = L.icon({
+	iconUrl: 'img/A_bw.png',
+	size: [30,30],
+	iconAnchor: [15,15]
 });
 
 
@@ -55,12 +73,29 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-fetch('shp.zip')
-  .then(response => response.arrayBuffer())
-  .then(arrayBuffer => {
-    var shpfile = new L.Shapefile(arrayBuffer);
-    shpfile.addTo(map);
-  });
+fetch('Shops.geojson')
+  .then(response => response.json())
+  .then(geojson => {
+	console.log(geojson);
+    var geojsonLayer = L.geoJSON(geojson, {
+      pointToLayer: function (feature, latlng) {
+        // Customize the icon based on the property value
+        if (feature.properties.shop == "supermarket") {
+          var icon = gsIcon;
+        } else if (feature.properties.shop == "kiosk") {
+          var icon = kioskIcon;
+        } else {
+          var icon = speIcon;
+        }
+	
+        // Create a marker with the custom icon
+        return L.marker(latlng, { icon: icon });
+      }
+    });
+    console.log(geojsonLayer);
+    geojsonLayer.addTo(map);
+  // });
+
 
 
 // Change the language of the page
@@ -101,13 +136,13 @@ function displayAllData (data) {
 		
 		// Create marker and set its position
 		if (storeType == "supermarket") {
-			var icon = gsIcon;
+			var icon = CgsIcon;
 		}
 		if (storeType == "kiosk") {
-			var icon = kioskIcon;
+			var icon = CkioskIcon;
 		}
 		if (storeType.startsWith("specialised")) {
-			var icon = speIcon;
+			var icon = CspeIcon;
 		}
 		const marker = L.marker([lat, lng], {icon: icon});
 
@@ -185,6 +220,6 @@ function UpdateSpecialised(disabled) {
 	};
 };
 
-//DLGoogleSheet();
+DLGoogleSheet();
 
 map.on('click', onMapClick);
