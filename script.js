@@ -55,30 +55,10 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
-
-fetch('Shops.geojson')
-  .then(response => response.json())
-  .then(geojson => {
-	console.log(geojson);
-    var shpfile = L.geoJSON(geojson, {
-      pointToLayer: function (feature, latlng) {
-        // Customize the icon based on the property value
-		console.log("oui");
-        if (feature.properties.shop == "supermarket") {
-          var icon = gsIcon;
-		  console.log("super");
-        } else if (feature.properties.shop == "kiosk") {
-          var icon = kioskIcon;
-        } else {
-          var icon = speIcon;
-		  console.log("else");
-        }
-	
-        // Create a marker with the custom icon
-        return L.marker(latlng, { icon: icon }).addTo(map);
-      }
-    });
-    console.log(shpfile);
+fetch('shp.zip')
+  .then(response => response.arrayBuffer())
+  .then(arrayBuffer => {
+    var shpfile = new L.Shapefile(arrayBuffer);
     shpfile.addTo(map);
   });
 
