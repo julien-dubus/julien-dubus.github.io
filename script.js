@@ -60,7 +60,7 @@ fetch('shp.zip')
   .then(response => response.arrayBuffer())
   .then(arrayBuffer => {
     var shpfile = new L.Shapefile(arrayBuffer,{style:function(feature){
-	return {color:”black”,fillColor:”red”,fillOpacity:.75}}});
+	return {color:"black",fillColor:"red",fillOpacity:.75}}});
     shpfile.addTo(map);
   });
 
