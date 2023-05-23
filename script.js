@@ -75,7 +75,7 @@ fetch('Shops.geojson')
         }
 	
         // Create a marker with the custom icon
-        return L.marker(latlng, { icon: icon });
+        return L.marker(latlng, { icon: icon }).addTo(map);
       }
     });
     console.log(shpfile);
