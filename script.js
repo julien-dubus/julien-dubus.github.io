@@ -65,7 +65,7 @@ fetch('Shops.geojson')
         if (feature.properties.shop == "supermarket") {
           var icon = gsIcon;
         } else if (feature.properties.shop == "kiosk") {
-          var icon = kisokIcon;
+          var icon = kioskIcon;
         } else {
           var icon = speIcon;
         }
