@@ -76,7 +76,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 fetch('Shops.geojson')
   .then(response => response.json())
   .then(geojson => {
-	console.log(geojson);
     var geojsonLayer = L.geoJSON(geojson, {
       pointToLayer: function (feature, latlng) {
         // Customize the icon based on the property value
@@ -92,7 +91,6 @@ fetch('Shops.geojson')
         return L.marker(latlng, { icon: icon });
       }
     });
-    console.log(geojsonLayer);
     geojsonLayer.addTo(map);
   });
 
