@@ -79,18 +79,6 @@ fetch('Shops.geojson')
   });
 
 
-
-
-if (feature.properties.shop == "supermarket") {
-				feature.setIcon(gsIcon);
-			}
-			else if (feature.properties.shop == "kiosk") {
-				feature.setIcon(kioskIcon);
-			}
-			else {
-				feature.setIcon(speIcon);
-			}
-
 // Change the language of the page
 function setLanguage(lg) {
 	if (lg == 'en') {
