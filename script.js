@@ -59,8 +59,19 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 fetch('shp.zip')
   .then(response => response.arrayBuffer())
   .then(arrayBuffer => {
-    var shpfile = new L.Shapefile(arrayBuffer);
-    console.log(shpfile);
+    var shpfile = new L.Shapefile(arrayBuffer, {
+		onEachFeature:function(feature) {
+			if (feature.properties.shop == supermarket) {
+				feature.setIcon(gsIcon);
+			}
+			else if (feature.properties.shop == kiosk) {
+				feature.setIcon(kioskIcon);
+			}
+			else {
+				feature.setIcon(speIcon);
+			}
+		}
+	});
     shpfile.addTo(map);
   });
 
