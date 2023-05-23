@@ -60,6 +60,7 @@ fetch('shp.zip')
   .then(response => response.arrayBuffer())
   .then(arrayBuffer => {
     var shpfile = new L.Shapefile(arrayBuffer);
+    console.log(shpfile);
     shpfile.addTo(map);
   });
 
