@@ -57,25 +57,24 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 fetch('Shops.geojson')
-  .then(response => response.arrayBuffer())
-  .then(arrayBuffer => {
-    var shpfile = new L.geoJSON(geojsonFeature, {
-    pointToLayer: function (feature, latlng) {
-      // Customize the icon based on the property value
+  .then(response => response.json())
+  .then(geojson => {
+    var shpfile = L.geoJSON(geojson, {
+      pointToLayer: function (feature, latlng) {
+        // Customize the icon based on the property value
         if (feature.properties.shop == "supermarket") {
-			var icon = gsIcon;
-		}
-		else if (feature.properties.shop == "kiosk") {
-			var icon = kisokIcon;
-		}
-		else {
-			var icon = speIcon;
-		}
+          var icon = gsIcon;
+        } else if (feature.properties.shop == "kiosk") {
+          var icon = kisokIcon;
+        } else {
+          var icon = speIcon;
+        }
 
-		// Create a marker with the custom icon
-		return L.marker(latlng, { icon: icon });
-		}
+        // Create a marker with the custom icon
+        return L.marker(latlng, { icon: icon });
+      }
     });
+
     shpfile.addTo(map);
   });
 
