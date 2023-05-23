@@ -94,7 +94,7 @@ fetch('Shops.geojson')
     });
     console.log(geojsonLayer);
     geojsonLayer.addTo(map);
-  // });
+  });
 
 
 
