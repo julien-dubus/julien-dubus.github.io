@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Grocery Stores Survey</title>
-    	<link rel="stylesheet" href="leaflet/leaflet.css" />
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
 	<link rel="stylesheet" href="style.css" />
 	<link rel="stylesheet" href="Leaflet.Legend-master/src/leaflet.legend.css" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -22,41 +22,11 @@
 	</header>
 	<footer>
 		<p id="title_instructions">Click on the map where you think a grocery stores was located but has since closed. Fill in the information and then press the "Add a store" button. A new page will open. You can close it and come back to this page if you think of other stores.</p>
-		<button type="button" id="displayAllData" onclick="displayAllData(data);" style="display:inline;">See what others have proposed</button>
+		<div id="button-container">
+			<button class="button" type="button" id="displayOpenStores" onclick="displayOpenStores();">Display open stores</button>
+			<button class="button" type="button" id="displayClosedStores" onclick="displayClosedStores();" disabled="disabled">Display closed stores</button>
+		</div>		
 	</footer>
-	
-	
-	<!-- <div id="formdiv"> -->
-	  <!-- <form role="form" id="projectform" onsubmit="return false"> -->
-		<!-- <div class="form-group"> -->
-		  <!-- <div class="form-group"> -->
-		  
-		    <!-- <label for="storeType">What kind of store was it ?<br></label> -->
-			<!-- <label class="form-radio"> -->
-			  <!-- <input type="radio" id="supermarket" name="storeType" value="supermarket" checked="checked" onclick="UpdateSpecialised(true)"></input> -->
-			  <!-- Supermarket<br> -->
-			<!-- </label> -->
-			<!-- <label class="form-radio"> -->
-			  <!-- <input type="radio" id="kiosk" name="storeType" value="kiosk" onclick="UpdateSpecialised(true)"></input> -->
-			  <!-- Kiosk<br> -->
-			<!-- </label> -->
-			<!-- <label class="form-radio"> -->
-			  <!-- <input type="radio" id="specialised" name="storeType" value="specialised" onclick="UpdateSpecialised(true)"></input> -->
-			  <!-- Specialised : <input type="text" name="storeType" placeholder="type of products sold" id="specialisedInput" disabled="true"/> <br><br> -->
-			<!-- </label>			 -->
-			
-			<!-- <label for="date">In what year did this store close ?</label> -->
-			<!-- <textarea class="form-control" name="dateInput" id="dateInput" placeholder="(optionnal)"></textarea> -->
-			
-		  <!-- </div> -->
-		  <!-- <em class="text-muted">Click submit to add a store at this location.</em> -->
-		<!-- <div id="formHelp"></div> -->
-		  <!-- <hr /> -->
-		  <!-- <button type="button" id="SubmitButton" onclick="OpenForm();">Submit</button> -->
-		<!-- </div> -->
-	    <!-- </form> -->
-	<!-- </div>	 -->
-	
 	<div id="map-container">
 		<div id="map"></div>
     </div>
