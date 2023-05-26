@@ -72,6 +72,35 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 19
 }).addTo(map);
 
+L.control.Legend({
+    position: "topright",
+    column: 2,
+    legends: [{
+        label: "Supermarket",
+        type: "image",
+        url: "img/S.png",
+    }, {
+        label: "Kiosk",
+        type: "image",
+        url: "img/K.png",
+    }, {
+        label: "Specialised",
+        type: "image",
+        url: "img/A.png",
+    }, {
+        label: "Closed supermarket",
+        type: "image",
+        url: "img/S_bw.png",
+    }, {
+        label: "Closed kiosk",
+        type: "image",
+        url: "img/K_bw.png",
+    }, {
+        label: "Closed specialised",
+        type: "image",
+        url: "img/A_bw.png",
+    },]
+}).addTo(map);
 
 fetch('Shops.geojson')
   .then(response => response.json())
