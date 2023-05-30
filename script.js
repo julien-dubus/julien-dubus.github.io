@@ -137,7 +137,7 @@ function displayOpenStores () {
 		  }
 		});
 		geojsonLayer.addTo(map);
-	  // });
+	  });
 	document.getElementById("displayOpenStores").innerText = "Remove open stores";
 	document.getElementById("displayOpenStores").onclick = removeOpenStores;
 }
