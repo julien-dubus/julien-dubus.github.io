@@ -120,15 +120,24 @@ function displayOpenStores () {
 			} else {
 			  var icon = speIcon;
 			}
+			var name = feature.properties.name;
 		
 			// Create a marker with the custom icon
 			const marker = L.marker(latlng, { icon: icon });
+			marker.bindPopup("<b>" + name + "</b>");
 			openmarkers.push(marker);
+			marker.on('mouseover', function (e) {
+			this.openPopup();
+			});
+			marker.on('mouseout', function (e) {
+				this.closePopup();
+			});
+			marker.addTo(map);
 			return marker
 		  }
 		});
 		geojsonLayer.addTo(map);
-	  });
+	  // });
 	document.getElementById("displayOpenStores").innerText = "Remove open stores";
 	document.getElementById("displayOpenStores").onclick = removeOpenStores;
 }
@@ -171,6 +180,7 @@ function displayClosedStores () {
 		var lng = parseFloat(d["Longitude (do not change)"]);
 		var closingDate = d["Closing date"];
 		var storeType = d["Store type"];
+		var description = d["Description"];
 		
 		// Create marker and set its position
 		if (storeType == "supermarket") {
@@ -185,18 +195,17 @@ function displayClosedStores () {
 		const marker = L.marker([lat, lng], {icon: icon});
 		closedmarkers.push(marker);
 
-	if (storeType.startsWith("specialised")) {
-		storeType = "Specialised : " + storeType.slice(12);
-	}
-	marker.bindPopup("<b>Closing Date:</b> " + closingDate + "<br><b>Store Type:</b> " + storeType);
-	
-	marker.on('mouseover', function (e) {
-		this.openPopup();
-	});
-	marker.on('mouseout', function (e) {
-		this.closePopup();
-	});
-		// Add marker to the map
+		if (storeType.startsWith("specialised")) {
+			storeType = "Specialised : " + storeType.slice(12);
+		}
+		marker.bindPopup("<b>Closing Date:</b> " + closingDate + "<br><b>Store Type:</b> " + storeType + "<br><b>Description:</b> " + description);
+		
+		marker.on('mouseover', function (e) {
+			this.openPopup();
+		});
+		marker.on('mouseout', function (e) {
+			this.closePopup();
+		});
 		marker.addTo(map);
 	}
 	document.getElementById("displayClosedStores").innerText = "Remove closed stores";
