@@ -3,17 +3,23 @@
 langEN = {
 	"title_question" : "Do you remember any grocery stores that closed in Trondheim ?",
 	"title_instructions" : "Click on the map where you think a grocery stores was located but has since closed. Fill in the information and then press the \"Add a store\" button. A new page will open. You can close it and come back to this page if you think of other stores.",
-	"dispData" : "See what others have proposed",
+	"dispOpen" : "Display open stores",
+	"dispClosed" : "Display closed stores",
+	"hideOpen" : "Hide open stores",
+	"hideClosed" : "Hide closed stores",
 };
 
 langNO = {
 	"title_question" : "Husker du noen dagligvarebutikker som stengte i Trondheim?",
 	"title_instructions" : "Klikk på kartet der du tror en dagligvarebutikk lå, men som siden har stengt. Fyll ut informasjonen og trykk deretter på knappen \"Legg til en butikk\". En ny side åpnes. Du kan lukke den og komme tilbake til denne siden hvis du kommer på andre butikker.",
-	"dispData" : "Se hva andre har foreslått",
+	"dispOpen" : "Vis åpne butikker",
+	"dispClosed" : "Vis stengte butikker",
+	"hideOpen" : "Skjuler åpne butikker",
+	"hideClosed" : "Skjuler stengte butikker",
 };
 
-var language = 'en';
-var lang = langEN;
+var language = 'no';
+var lang = langNO;
 
 var formID = "1FAIpQLSem_9tSoQNv_OKkDIAjmCAYctFxjrupPbed5LQ830AO6RRxyw"
 var formlatID = "702141779"
@@ -70,11 +76,12 @@ var closedmarkers = [];
 
 const map = L.map('map').setView([63.42, 10.43], 13);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	attribution: '&copy; OpenStreetMap contributors',
+	attribution: 'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 	maxZoom: 19
 }).addTo(map);
 
-L.control.Legend({
+
+legendEN = L.control.Legend({
     position: "topright",
     column: 2,
     legends: [{
@@ -102,8 +109,39 @@ L.control.Legend({
         type: "image",
         url: "img/A_bw.png",
     },]
-}).addTo(map);
+})
 
+legendNO = L.control.Legend({
+    position: "topright",
+    column: 2,
+    legends: [{
+        label: "Supermarked",
+        type: "image",
+        url: "img/S.png",
+    }, {
+        label: "Kiosk",
+        type: "image",
+        url: "img/K.png",
+    }, {
+        label: "Spesialforretning",
+        type: "image",
+        url: "img/A.png",
+    }, {
+        label: "Stengt supermarked",
+        type: "image",
+        url: "img/S_bw.png",
+    }, {
+        label: "Stengt kiosk",
+        type: "image",
+        url: "img/K_bw.png",
+    }, {
+        label: "Stengt spesialforretning ",
+        type: "image",
+        url: "img/A_bw.png",
+    },]
+})
+
+var legend = legendNO;
 
 function displayOpenStores () {
 	openmarkers = [];
@@ -138,7 +176,7 @@ function displayOpenStores () {
 		});
 		geojsonLayer.addTo(map);
 	  });
-	document.getElementById("displayOpenStores").innerText = "Remove open stores";
+	document.getElementById("displayOpenStores").innerText = lang.hideOpen;
 	document.getElementById("displayOpenStores").onclick = removeOpenStores;
 }
 
@@ -146,17 +184,27 @@ function displayOpenStores () {
 
 // Change the language of the page
 function setLanguage(lg) {
+	removeOpenStores();
+	removeClosedStores();
+	map.removeControl(legend);
+	
 	if (lg == 'en') {
 		lang = langEN;
 		language = 'en';
+		legend = legendEN;
 	}
 	if (lg == 'no') {
 		lang = langNO;
 		language = 'no';
+		legend = legendNO;
 	}
+	
+	legend.addTo(map);
+	
 	$("#title_question").text(lang.title_question);
 	$("#title_instructions").text(lang.title_instructions);
-	$("#displayAllData").text(lang.dispData);
+	$("#displayOpenStores").text(lang.dispOpen);
+	$("#displayClosedStores").text(lang.dispClosed);
 }
 
 // Download the Google Sheet with the surveys responses
@@ -208,7 +256,7 @@ function displayClosedStores () {
 		});
 		marker.addTo(map);
 	}
-	document.getElementById("displayClosedStores").innerText = "Remove closed stores";
+	document.getElementById("displayClosedStores").innerText = lang.hideClosed;
 	document.getElementById("displayClosedStores").onclick = removeClosedStores;
 }
 
@@ -220,13 +268,13 @@ function removeMarkers(markers) {
 
 function removeOpenStores() {
 	removeMarkers(openmarkers);
-	document.getElementById("displayOpenStores").innerText = "Display open stores";
+	document.getElementById("displayOpenStores").innerText = lang.dispOpen;
 	document.getElementById("displayOpenStores").onclick = displayOpenStores;
 }
 
 function removeClosedStores() {
 	removeMarkers(closedmarkers);
-	document.getElementById("displayClosedStores").innerText = "Display closed stores";
+	document.getElementById("displayClosedStores").innerText = lang.dispClosed;
 	document.getElementById("displayClosedStores").onclick = displayClosedStores
 }
 
@@ -243,6 +291,7 @@ function onMapClick(e) {
 	}
 	//Add marker visually on the map and open a popup
 	marker = L.marker(e.latlng).addTo(map).bindPopup(popup);
+	map.removeControl(legend);
 
     setTimeout(function() {
 		marker.openPopup();
@@ -250,6 +299,7 @@ function onMapClick(e) {
 	
 	// Remove the marker when the popup is closed
 	marker.on('popupclose', function() {
+		legend.addTo(map);
 		map.removeLayer(marker);
 		setTimeout(function() {
 			for (m of markers) {	
@@ -290,4 +340,5 @@ function UpdateSpecialised(disabled) {
 
 DLGoogleSheet();
 
+setLanguage("no");
 map.on('click', onMapClick);
