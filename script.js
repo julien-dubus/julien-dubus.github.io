@@ -84,6 +84,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 legendEN = L.control.Legend({
     position: "topright",
     column: 2,
+    collapsed : true,
     legends: [{
         label: "Supermarket",
         type: "image",
@@ -114,6 +115,7 @@ legendEN = L.control.Legend({
 legendNO = L.control.Legend({
     position: "topright",
     column: 2,
+    collapsed : true,
     legends: [{
         label: "Supermarked",
         type: "image",
